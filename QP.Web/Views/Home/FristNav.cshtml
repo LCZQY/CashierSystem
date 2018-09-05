@@ -1,0 +1,251 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>FristNav</title>
+    @**************Easy-UI**************@
+    <script src="~/lib/jquery-easyui/jquery.min.js"></script>
+    @*环境加载*@
+    <script src="~/lib/jquery-easyui/easyloader.js"></script>
+    <script src="~/lib/jquery-easyui/jquery.easyui.min.js"></script>
+    <script src="~/lib/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link href="~/lib/jquery-easyui/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/lib/jquery-easyui/themes/icon.css" rel="stylesheet" />
+    <link href="~/css/HomePage/accordion.css" rel="stylesheet" />
+</head>
+<body>
+    <h1 style="background:red;">异步加载中...... </h1>
+    <div style="height:500px;">
+        <table id="roleGrid"> </table>
+    </div>
+    <p>Birth</p>
+</body>
+</html>
+<script>
+    $(function () {
+        LoadGrid();
+       
+        var arr = [["staffName", '姓名'], ["staffSex", '性别'
+
+        ], ["staffDuty", '职位'
+
+        ], ["staffBirthType", '生日类型'], ["staffBirth", '生日'
+
+        ], ["staffIdentity", '身份证'
+
+        ], ["staffPhone", '手机'], ["acrossTheStore", '是否跨店'
+
+        ], ["staffEntryTime", '入职时间'
+
+        ], ["staffCreateTime", '创建时间'], ["staffCreator", '创建人'
+
+        ], ["staffUpdateTime", '修改时间'], ["staffModifyUser", '修改用户']
+
+        ];
+        Colunms(arr);
+    });
+    function Colunms(options) {
+        
+        var arry = "", json = {};
+        for (var item in options) {
+            var values = options[item];
+            for (var index in values) {
+                arry += "{field:" + values[index] + ",title:" + values[index] + ",width:50,align:'center'},"
+                //arry.push(values[index]);
+                //console.log(values[index]);             
+            }                       
+        }
+        console.log(arry.substr(0, arry.length - 1));
+        json["coluns"] = arry.substr(0, arry.length - 1);
+        console.log(json);
+    };
+
+
+    //加载表格！！！
+    function LoadGrid() {
+        $('#roleGrid').datagrid({
+            striped: true,  //交替条纹
+            fitColumns: true,  //防止水平滚动
+            fit: true,//自动补全
+            iconCls: "icon-save",//图标
+            idField: 'RoleId', //唯一列
+            url: "GetRoles",
+            dataType: "json",
+            singleSelect: true, //设置为true将只允许选择一行
+            loadMsg: '正在拼命加载,请稍后...',
+            rownumbers: false,  //显示行数
+            pagination: true, //底部分页工具栏
+            nowrap: true,  //截取超出部分的数据
+            checkOnSelect: true,//点击一行的时候 checkbox checked(选择)/unchecked(取消选择)
+            pageNumber: 1,//初始化分页码。
+            pageSize: 10, //初始化每页记录数。
+            pageList: [5, 10, 30],  //初始化每页记录数列表
+            showFooter: false, //定义是否显示行底
+            columns: [[{
+                field: "checkbox",
+                checkbox: true
+            },
+            {
+                field: "staffName",
+                title: '姓名',
+                width: 50,
+                align: 'center'
+            },
+            {
+                field: "staffSex",
+                title: '性别',
+                width: 50,
+                align: 'center'
+            },
+            {
+                field: "staffDuty",
+                title: '职位',
+                width: 50,
+                align: 'center'
+            },
+            {
+                field: "staffBirthType",
+                title: '生日类型',
+                width: 60,
+                align: 'center'
+            },
+            {
+                field: "staffBirth",
+                title: '生日',
+                width: 100,
+                align: 'center',
+                formatter: function (value, row, index) {
+                    if (value.indexOf("T") > -1) {
+                        return value.substr(0, (value.length - value.indexOf("T")) + 1);
+                    }
+                }
+            },
+            {
+                field: "staffIdentity",
+                title: '身份证',
+                width: 100,
+                align: 'center'
+            },
+            {
+                field: "staffPhone",
+                title: '手机',
+                width: 100,
+                align: 'center'
+            },
+            {
+                field: "acrossTheStore",
+                title: '是否跨店',
+                width: 60,
+                align: 'center'
+            },
+            {
+                field: "staffEntryTime",
+                title: '入职时间',
+                width: 100,
+                align: 'center',
+                formatter: function (value, row, index) {
+                    if (value.indexOf("T") > -1) {
+                        return value.substr(0, (value.length - value.indexOf("T")) + 1);
+                    }
+                }
+            },
+            {
+                field: "staffCreateTime",
+                title: '创建时间',
+                width: 100,
+                align: 'center',
+                formatter: function (value, row, index) {
+                    if (value.indexOf("T") > -1) {
+                        return value.substr(0, (value.length - value.indexOf("T")) + 1);
+                    }
+                }
+            },
+            {
+                field: "staffCreator",
+                title: '创建人',
+                width: 50,
+                align: 'center'
+            },
+            {
+                field: "staffUpdateTime",
+                title: '修改时间',
+                width: 100,
+                align: 'center'
+            },
+            {
+                field: "staffModifyUser",
+                title: '修改用户',
+                width: 100,
+                align: 'center'
+            },
+            ]],
+        });
+    };
+
+
+
+    function editRole(i) { //编辑按钮的方法
+        var rows = $("#roleGrid").datagrid("getRows");
+        layer.open({
+            title: false,
+            type: 2,
+            closeBtn: false,
+            area: ['420px', '418px'],
+            skin: 'layui-layer-rim', //加上边框
+            content: ['/Admin/ShowForm/EidtRole', 'no'],
+            success: function (layero, index) {
+                var body = layer.getChildFrame('body', index);
+                body.contents().find("#roleId").val(rows[i].RoleId);
+                body.contents().find("#roleName").val(rows[i].RoleName);
+                if (rows[i].RoleRemarks != "-") {
+                    body.contents().find("#remarks").val(rows[i].RoleRemarks);
+                }
+                body.contents().find("#isstutas").val(rows[i].IsStatus);
+            }
+        });
+    }
+
+    function delRole(i) { //删除用户
+        var rows = $("#roleGrid").datagrid("getRows");
+
+        var postData = {
+            roleId: rows[i].RoleId
+        };
+
+        layer.confirm('确认删除该角色？', {
+            btn: ['确认', '取消'], //按钮
+            shade: false //不显示遮罩
+        }, function (index) {
+            $.ajax({
+                type: "POST",
+                url: "DeleRole",
+                data: postData,
+                success: function (result) {
+                    if (result == "true") {
+                        layer.msg("操作成功！", {
+                            icon: 6,
+                            time: 1000,
+                        }, function () {
+                            $("#roleGrid").datagrid("reload");
+                            layer.close(index);
+                        });
+                    } else if (result == "false") {
+                        layer.msg("操作失败！", { icon: 2 });
+                    } else if (result == "msg") {
+                        layer.msg("系统错误,请联系管理员！", { icon: 0 });
+                    }
+                }
+            });
+        }, function (index) {
+            layer.close(index);
+        });
+    }
+
+  
+</script>

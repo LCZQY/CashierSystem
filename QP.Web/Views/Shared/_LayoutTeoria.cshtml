@@ -1,0 +1,26 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/css/CommonCss/CommonSetting.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    @*系统验证*@
+    <script src="~/js/site.js"></script>
+    @*验证脚本*@
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    @*非嵌入式脚本*@
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+</head>
+<body>
+    @RenderBody()
+    <section>
+        <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+        @RenderSection("scripts", required: false)
+    </section>
+</body>
+</html>

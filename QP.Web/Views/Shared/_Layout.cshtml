@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - 琦品-收银</title>
+    @**************Easy-UI**************@
+    <script src="~/lib/jquery-easyui/jquery.min.js"></script>
+    @*环境加载*@
+    <script src="~/lib/jquery-easyui/easyloader.js"></script>
+    <script src="~/lib/jquery-easyui/jquery.easyui.min.js"></script>
+    <script src="~/lib/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link href="~/lib/jquery-easyui/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/lib/jquery-easyui/themes/icon.css" rel="stylesheet" />
+    <link href="~/css/HomePage/accordion.css" rel="stylesheet" />
+    @***导航***@
+    <script src="~/lib/layui/layui.all.js"></script>
+    <script src="~/js/CommonJs/Common.js"></script>
+    <link href="~/css/HomePage/myeasyui.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon">
+</head>
+
+
+<body class="easyui-layout" id="lay">
+    <div data-options="region:'north',collapsible:false,split:true,border:false" style="height:70px; padding:0; background:#343339; ">
+        <div id="Container">
+            <div id="Header">
+                <div id="HeaderLogo" style="width:37%;">
+                    <img src="http://demo.ymgpt.com/Themes/Images/product2.png" style="">
+                </div>
+                <div id="Headermenu">
+                    <ul id="topnavs"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'south',collapsible:false,split:true,border:false">
+        &copy;  琦品出品
+    </div>
+    <div id="content" data-options="region:'west',collapsible:false,split:true,border:false" style=" background: #f2f5f7; width :170px; padding:0; ">
+        @{
+            <span id="datetime" style="background:#f3f2b6"> @DateTime.Now.ToLongTimeString()</span>
+        }
+        <div id="aa" class="easyui-accordion" data-options="fit:true,collapsible:false,border: false,lines:true, " style="background: #f2f5f7; height:60px;">
+
+        </div>
+    </div>
+    <div data-options="region:'center',collapsible:false,split:true,border:false" style="padding:0px;background:#eee;">
+        <div id="tt" class="easyui-tabs" data-options="collapsible:false,border:false,fit:true" style="padding:0;">
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var date = new Date();
+        var mySettime = window.setTimeout(function () {
+            alert(0);
+            //  return String(date.getFullYear()) + "年" + String(date.getMonth()) + "月" + String(date.getDay());
+            //return date.toLocaleTimeString();
+        }, 1000);
+
+    initMenu("@Url.Action("SubNavs","Home")");
+
+var Content_click = function (e) {
+    if (e != null) {
+        var flage = $("#tt").tabs("exists", $(this).text());
+        if (flage) {
+            $("#tt").tabs("select");
+        } else {
+            var body = '<iframe id="tabs_iframe_Imain" name="tabs_iframe_Imain" src="@Url.Action("Index","matter")" width="100%" height="100%" frameborder="0"></iframe>';
+            $("#tt").tabs("add", {
+                title: $("#sub"+e).text(),
+                border: false,
+                plain: true,
+                content: body,
+                closable: true,
+            });
+        }
+    }
+}
+    </script>
+</body>
+@RenderSection("Scripts", required: false)
+</html>

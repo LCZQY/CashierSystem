@@ -1,0 +1,144 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+
+<style type="text/css">
+    .datagrid-header-row, .datagrid-row {
+        height: 25px;
+    }
+
+    .textbox .textbox-tex {
+        font-size: 12px;
+    }
+
+    .datagrid-header .datagrid-cell span, .datagrid-cell {
+        font-size: 12px;
+    }
+
+    select, .tree-title {
+        font-size: 12px;
+    }
+    /**window*/
+    .panel-header, .panel-title, .panel-with-icon {
+        background: #f5f5f5;
+        border: none;
+    }
+    
+</style>
+
+<div data-options="region:'north',collapsible:false,split:true,border:false,tools:[
+				{
+					iconCls:'icon-help',
+					handler:function(){ help() }
+				}]" title="" style="overflow: hidden; width: 100%; height: 100px;" class="panel-body panel-body-noheader panel-body-noborder layout-body">
+    <div class="widget-header bordered-bottom bordered-themeprimary bg-white">
+        <span class="widget-caption" style="color: #737373;">员工档案 </span>
+    </div>
+    <div class="widget-body bordered-bottom " style="height: 50px;">
+        <div style="float: left; width: 100%; height: 30px;">
+            <div id="div_checkmenu" style="text-align: right; display: none; position: absolute; left: 10px;">
+                <h5 class="row-title" style="margin-right: 4px;"><i class="fa  fa-check-square-o"></i>已选中<span id="span_checkCount">0</span>项 </h5>
+                <a class="btn btn-primary btn-sm" href="javascript:edit()"><i class="fa fa-pencil-square-o"></i>编辑</a><a class="btn btn-primary btn-sm" href="javascript:Delete()"><i class="fa fa-trash-o"></i>删除</a><a class="btn btn-primary btn-sm" href="javascript:KuaDian()"><i class="glyphicon glyphicon-indent-left"></i>跨店</a><a class="btn btn-primary btn-sm" href="javascript:LiZhi()"><i class=""></i>离职</a>
+            </div>
+            <table class="tableForm" style="float: left; display: table; position: absolute; left: 10px;">
+                <tbody>
+                    <tr style="">
+                        <td>
+                            <h5 class="row-title"><i class="fa fa-edit"></i>查询条件 </h5>
+                        </td>
+                        <td style="padding-bottom:4px;">
+                            <input id="comboboxDate" class="easyui-combobox combobox-f combo-f textbox-f" />
+                            @*<span class="textbox combo" style="width: 100px; height: 30px;">
+                                    <span class="textbox-addon textbox-addon-right" style="right: 0px;">
+                                        <a href="javascript:void(0)" class="textbox-icon combo-arrow" icon-index="0" tabindex="-1" style="width: 18px; height: 28px;"></a>
+                                    </span>
+                                    <input class="textbox-text validatebox-text" autocomplete="off" placeholder="" style="margin-left: 0px; margin-right: 18px; padding-top: 5px; padding-bottom: 5px; width: 80px;" type="text">
+                                    <input class="textbox-value" name="" value="ShengRiDate" type="hidden">
+                                </span>*@:&nbsp;
+
+                            <input id="dateStart" class="easyui-datebox datebox-f combo-f textbox-f" type="text">
+                            @*<span class="textbox combo datebox" style="width: 100px; height: 30px;">
+                                    <span class="textbox-addon textbox-addon-right" style="right: 0px;"><a href="javascript:void(0)" class="textbox-icon combo-arrow" icon-index="0" tabindex="-1" style="width: 18px; height: 28px;"></a></span><input class="textbox-text validatebox-text textbox-prompt" autocomplete="off" placeholder="" style="margin-left: 0px; margin-right: 18px; padding-top: 5px; padding-bottom: 5px; width: 80px;" type="text">
+                                    <input class="textbox-value" name="" value="" type="hidden">
+                                </span>*@-
+                            <input id="dateEnd" class="easyui-datebox datebox-f combo-f textbox-f" type="text">
+                            @*<span class="textbox combo datebox" style="width: 100px; height: 30px;">
+                                    <span class="textbox-addon textbox-addon-right" style="right: 0px;"><a href="javascript:void(0)" class="textbox-icon combo-arrow" icon-index="0" tabindex="-1" style="width: 18px; height: 28px;"></a></span>
+                                    <input class="textbox-text validatebox-text textbox-prompt" autocomplete="off" placeholder="" style="margin-left: 0px; margin-right: 18px; padding-top: 5px; padding-bottom: 5px; width: 80px;" type="text">
+                                    <input class="textbox-value" name="" value="" type="hidden">
+                                </span>*@
+                        </td>
+                        <td>
+                            <input id="Swhere" value="1=1  and MDID in (select * from dbo.GetMdNo('05e85693-14b0-4582-8063-8fbde85371f0')) and StateID='1'" type="hidden">
+                            <select id="fields" class="form-control" name="fields" style="width: 100px; height: 31px;"></select>
+                        </td>
+                        <td>
+                            <select id="fieldop" class="form-control" name="fieldop" style="width: 100px; height: 30px;">
+                                <option value="包含">包含</option>
+                                <option value="等于">等于</option>
+                                <option value="不等于">不等于</option>
+                                <option value="大于">大于</option>
+                                <option value="大于等于">大于等于</option>
+                                <option value="小于">小于</option>
+                                <option value="小于等于">小于等于</option>
+                                <option value="以xx开始">以xx开始</option>
+                                <option value="以xx结束">以xx结束</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="form-control" style="height: 30px;" size="12" name="findtext" id="findtext" type="text">
+                        </td>
+                        <td><a class="btn btn-primary btn-sm " href="javascript:SimpleSearch();"><i class="glyphicon glyphicon-search"></i></a></td>
+                        <td><a class="btn btn-primary btn-sm " href="javascript:HighSearch();">高级查询</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="div_ToolMenu" style="text-align: right; float: right;">
+                <a class="btn btn-primary btn-sm" href="javascript:add()"><i class="fa fa-plus"></i>新增</a>
+                <a class="btn btn-primary btn-sm" href="javascript:Replace('@Url.Action("GetJson","matter")')"><i class="fa fa-refresh"></i>刷新</a>
+                <a class="btn btn-primary btn-sm" href="javascript:exportdata()"><i class="fa fa-share-square-o"></i>导出</a>           
+            </div>                    
+
+            @*新增*@
+            <div id="window" class="easyui-window" title="添加" data-options="modal:true,closed:true," style="padding:10px;"> 
+                <iframe id="tabs_iframe_Imain" name="tabs_iframe_Imain" src="@Url.Action("Index","Teoria")" width="100%" height="100%" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-options="region:'west',collapsible:false,split:true,border:false" style="width:200px;padding:0; ">
+    <p style="height:9px;"></p>
+    <div class="panel easyui-fluid">
+        <div class="panel-header panel-header-noborder" style=" width: 193px;">
+            <div class="panel-title">快捷查询</div><div class="panel-tool"></div>
+        </div>
+        <div class="easyui-panel panel-body panel-body-noborder" style="padding:0;" title="" data-options="fit:true,border:false">
+            <ul id="tree" class="easyui-tree"></ul>
+        </div>
+    </div>
+</div>
+<div data-options="region:'center',collapsible:false,split:true,border:false" style="padding:5px;background:#eee;  height:300px !important;">
+    <table id="dg"></table>
+</div>
+
+
+@section script{
+    <script src="~/lib/layui/layui.js"></script>
+    <script src="~/js/CommonJs/Common.js"></script>
+    <script src="~/lib/layui/layui.js"></script>
+    <script src="~/js/CommonJs/windows.js"></script>
+    <script src="~/js/CommonJs/showdatagrid.js"></script>
+    <script>
+        $(function () {
+            loadSelectfile("@Url.Action("GetSelectData", "matter")");
+            showTable("@Url.Action("GetJson", "matter")");
+            comboboxDate();
+            dateInput();
+            getDateStart();
+            getDateEnd();
+            createTree();
+        });
+    </script>
+}
+
+

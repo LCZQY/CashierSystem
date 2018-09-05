@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>琦品-登录</title>
+    <script src="~/js/CommonJs/jquery-3.2.1.min.js"></script>
+    <link href="~/css/LogInCss/base.css" rel="stylesheet" />
+    <link href="~/css/LogInCss/default.css" rel="stylesheet" />
+    <link href="~/css/LogInCss/register.css" rel="stylesheet" />
+    <link href="~/css/LogInCss/styles.css" rel="stylesheet" />
+    <link href="~/css/LogInCss/jquery-ui.css" rel="stylesheet" />
+    <link href="~/css/LogInCss/loginpage.css" rel="stylesheet" />
+    <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon">    
+    <link href="~/lib/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+</head>
+<body>
+    @RenderBody()
+    <section class="js">        
+        <script src="~/lib/layui/layui.js"></script>
+        <script src="~/js/CommonJs/Common.js"></script>
+        @RenderSection("scripts", required: false)
+    </section>
+</body>
+</html>

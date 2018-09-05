@@ -1,0 +1,110 @@
+﻿@model QP.Cashier_Model.CreateEntity.Staffs
+@{
+    Layout = "../shared/_layoutLogin";
+}
+<div class="wrapper">
+    <!--left img-->
+    <div class="left_img">
+
+    </div>
+    <!--right content -->
+    <div class="right_content" id="div_main">
+        <!--main-->
+        <div class="main">
+            <div class="register">
+                <div id="div_title">
+
+                </div>
+                <div id="loginDiv">
+                    <h1 style="color:#656464;text-align:left">欢迎登录</h1>
+                    <label class="error_info" id="error_info" style="display:block;margin: 0px;"></label>
+                    <form method="post" name="login_form" id="ff">
+                        @Html.AntiForgeryToken()
+                        <ul class="register_form">
+                            <li class="form-group clear">
+                                <span id="user"><i class="fa fa-user-o fa-lg"></i></span>
+                                <input class="input_code form-control" type="text" tabindex="1" maxlength="6" name="JobNumber" placeholder="用户ID" value="admin">
+                            </li>
+                            <li class="form-group clear">
+                                <span id="password"><i class="fa fa-lock fa-lg"></i></span>
+                                <input class="input_code form-control" tabindex="1" type="password" name="Password" placeholder="密码登录" va>
+                            </li>
+                        </ul>
+                        <ul class="verification_form register_form" style="display:none; margin-top:0; padding-top:0; border-top:0;">
+                            <li class="clear">
+                                <div class="sucess_info">
+                                    <input class="input_code" type="text" maxlength="4" checktype="verify" name="graphCode" placeholder="请输入四位识别码">
+                                    <input type="hidden" name="sessionID" class="input_sessionId">
+                                </div> <span class="verification_img"><canvas width="94" id="canvas" height="42" class="img_code"></canvas></span> <span class="dimness">看不清</span> <a href="javascript:;" class="change">换一张</a>
+                            </li>
+                        </ul>
+                        <div class="register_submit clear">
+                            <input type="submit" title="登录" id="login" value="登录" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--right content end -->
+</div>
+
+@section scripts{
+ 
+    <script src="~/js/LoginJs/VerificationCore.js"></script>
+    <script type="text/javascript">
+            var returnUrl = '@ViewContext.HttpContext.Request.Query["returnUrl"]';
+            //初始化验证码
+            var code = drawPic();
+        $("input[type='submit']").on("click", function (event) {
+                var LogName = $("input[name='JobNumber']").val();
+                var PassWord = $("input[name='Password']").val();
+
+                //调用输入验证方法
+                var legal_usrPad = verfication_input({ LogName, PassWord });
+                if (legal_usrPad == "true") {
+
+                    $(".verification_form").show();
+                    var InputCode = $("input[name='graphCode']").val();
+
+
+                    // 看不清
+                    $(".change").bind("click",function (e) {
+                        e.preventDefault();
+                        code = drawPic();
+                    });
+
+                    //调用验证码方法
+                    var legal_code = verifaction_code({ InputCode, code });
+                    if (legal_code == "true") {
+
+                        //调用异步方法
+                      ajax_request({
+                            url: '@Url.Action("IndexLogin")',
+                            data: { LogNumber: LogName, PassWord: PassWord },
+                            callback: function (rst) {
+                                if (rst.code == 200) {
+
+                                    location.href = "@Url.Action("Index", "Home")";
+                                    //location.href = (returnUrl === '' ? '/System' : 'returnUrl');
+                                } else {
+                                    $("#error_info").text(rst.description);
+                                    $(".change").trigger("click");
+                                }
+                            }
+                         });
+                    } else {
+                        $("#error_info").text(legal_code);
+                        $(".change").trigger("click");
+                        return false;
+                    }
+
+                } else {
+                    $("#error_info").text(legal_usrPad);
+                    return false;
+                }
+                return false;
+            });
+
+    </script>
+}

@@ -1,0 +1,37 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>内容模板页面</title>
+
+    @**************Easy-UI**************@
+    <link href="~/lib/jquery-easyui/themes/default/easyui.css" rel="stylesheet" />
+    <link href="~/lib/jquery-easyui/themes/icon.css" rel="stylesheet" />
+    <script src="~/lib/jquery-easyui/jquery.min.js"></script>
+    @*环境加载*@
+    <script src="~/lib/jquery-easyui/easyloader.js"></script>
+    <script src="~/lib/jquery-easyui/jquery.easyui.min.js"></script>
+    @*<script src="~/lib/jquery-easyui/jquery.easyui.mobile.js"></script>*@
+    <script src="~/lib/jquery-easyui/locale/easyui-lang-zh_CN.js"></script>
+
+
+    @*****@
+    <link href="~/css/CommonCss/bootstrapbuttons.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/CommonCss/beyond.css" rel="stylesheet" />
+    <link href="~/css/CommonCss/azure.min.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/lib/layui/css/layui.css" rel="stylesheet" />
+
+</head>
+
+<body id="div_layout" class="easyui-layout layout easyui-fluid" style="width:100%;" data-options="fit : true,border : false" >
+    @RenderBody()
+    <section class="js">
+        @RenderSection("script", required: false)
+    </section>
+</body>
+
+</html>

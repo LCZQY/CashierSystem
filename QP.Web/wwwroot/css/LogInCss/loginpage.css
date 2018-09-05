@@ -1,0 +1,58 @@
+﻿
+/*******************************************鍘熸牱寮?**************************************************************/
+#div_title {
+    width: 100%;
+    height: 180px;
+}
+
+body {
+    font: 12px 'Lucida Sans Unicode', 'Trebuchet MS', Arial, Helvetica;
+    margin: 0;
+    background-color: #d9dee2;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebeef2), to(#d9dee2));
+    background-image: -webkit-linear-gradient(top, #ebeef2, #d9dee2);
+    background-image: -moz-linear-gradient(top, #ebeef2, #d9dee2);
+    background-image: -ms-linear-gradient(top, #ebeef2, #d9dee2);
+    background-image: -o-linear-gradient(top, #ebeef2, #d9dee2);
+    background-image: linear-gradient(top, #ebeef2, #d9dee2);
+    background: url(login/1920-1080.png) no-repeat center top fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.div_footer p {
+    text-align: center;
+}
+
+#login:hover {
+    background: #21ab24;
+    border-bottom: 3px solid #209122;
+    color: #fff;
+    text-decoration: none;
+}
+
+#login, #login:visited {
+    display: block;
+    border: none;
+    float: left;
+    height: 41px;
+    line-height: 35px;
+    background: #3ebd40;
+    border-bottom: 3px solid #209122;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 250px;
+    text-align: center;
+}
+
+.left_img {
+    background: no-repeat;
+    background-size: cover;
+    background-image: url("../../images/LogInImgage/1920-1080.png");
+    width: 100%;
+    z-index: -1;
+    position: absolute;
+}

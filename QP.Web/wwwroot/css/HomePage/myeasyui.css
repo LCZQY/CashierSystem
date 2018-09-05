@@ -1,0 +1,68 @@
+﻿/*myeasyui css*/
+/*------------------------------------------------自定义Easyui风格样式-------------------------------------------------------*/
+li {
+    list-style: none;
+}
+
+#Header {
+    background: #343339;
+}
+
+#HeaderLogo {
+    margin-left: 0px;
+}
+
+#topnavs {
+    margin-top: -1%;
+}
+
+#topnavs li.list {
+        margin: 0px;
+        float: left;
+        padding-top: 8px;
+    }
+
+#topnavs li.list a {
+            color: white;
+            font-weight: bold;
+            padding: 5px 5px 0px;
+}
+
+#HeaderLogo {
+    float: left;
+}
+
+/**自定义手风琴样式**/
+.accordion .accordion-header {
+    border: none;
+    background: #f5f5f5;
+    border-top-width: 0;
+    cursor: pointer;
+    text-align: center;
+}
+
+.panel-title {
+    background: url('/images/TopNavs/001_basic.png') no-repeat;
+    background-size: contain;
+    font-size: 13px;
+    font-weight: bold;
+    color: #0E2D5F;
+    height: 27px;
+    line-height: 30px;
+    box-shadow: 0px 2px 0px white;
+}
+
+.panel-body {
+    background: #f2f5f7;
+}
+
+
+/**tab样式**/
+.tabs {
+    height: 28px;
+    background: #eeeeee;
+    border: none;
+    padding: 0;
+}
+
+
